@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout :: layout(~{::section}, ${rol.id == null ? 'Crear Rol' : 'Editar Rol'})}" lang="es">
+
+<section th:fragment="contenido">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h1 class="mb-4 text-primary fw-bold display-6" 
+                th:text="${rol.id == null ? 'Crear Nuevo Rol' : 'Editar Rol: ' + rol.nombre}">
+            </h1>
+            
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-secondary text-white fw-bold py-3">
+                    <i class="fas fa-clipboard-list me-2"></i> Formulario de Configuración
+                </div>
+                <div class="card-body p-4">
+                    <form th:action="@{/rol/guardar}" th:object="${rol}" method="post">
+                        <input type="hidden" th:field="*{id}">
+
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label fw-bold">Nombre del Rol (Ej: PROFESOR)</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-tag"></i></span>
+                                <input type="text" id="nombre" th:field="*{nombre}" class="form-control" 
+                                       placeholder="NOMBRE_DEL_ROL" required maxlength="50"
+                                       th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : ''">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
+                                    Error de nombre.
+                                </div>
+                            </div>
+                            <div id="nombreHelp" class="form-text">Debe ser en mayúsculas (El prefijo 'ROLE_' se maneja internamente).</div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="descripcion" class="form-label fw-bold">Descripción</label>
+                            <textarea id="descripcion" th:field="*{descripcion}" class="form-control" rows="3" 
+                                      placeholder="Descripción breve de las funciones y permisos asociados a este rol."></textarea>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="d-flex justify-content-between">
+                            <a th:href="@{/rol/listado}" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i> Regresar
+                            </a>
+                            <button type="submit" class="btn btn-success btn-lg shadow-sm">
+                                <i class="fas fa-floppy-disk me-2"></i> 
+                                <span th:text="${rol.id == null ? 'Crear Rol' : 'Actualizar Rol'}">Guardar Rol</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</html>
+

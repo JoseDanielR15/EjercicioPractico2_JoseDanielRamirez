@@ -1,0 +1,53 @@
+<section th:fragment="contenido" th:with="titulo='Reportes y Consultas'">
+    <h1 class="mb-4 text-primary fw-bold">Reportes y Consultas</h1>
+    <p class="lead text-muted">Módulo de visualización de datos y generación de reportes.</p>
+
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <div class="card shadow-lg border-0 h-100">
+                <div class="card-header bg-info text-white fw-bold">
+                    <i class="fas fa-filter me-2"></i> Opciones de Consulta
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="usuario" class="form-label fw-bold">Filtrar por Usuario</label>
+                            <select id="usuario" class="form-select">
+                                <option value="" selected>Todos los Usuarios</option>
+                                <option th:each="u : ${usuarios}" th:value="${u.id}" th:text="${u.nombre} + ' ' + ${u.apellido}"></option>
+                            </select>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <label class="form-label fw-bold">Rango de Fechas</label>
+                            <div class="col-md-6">
+                                <input type="date" class="form-control" placeholder="Desde">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="date" class="form-control" placeholder="Hasta">
+                            </div>
+                        </div>
+
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg shadow-sm">
+                                <i class="fas fa-search me-2"></i> Aplicar Filtros
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0 h-100">
+                <div class="card-header bg-primary text-white fw-bold">
+                    <i class="fas fa-chart-bar me-2"></i> Visualización de Datos
+                </div>
+                <div class="card-body text-center d-flex justify-content-center align-items-center" style="min-height: 400px;">
+                    <img src="https://via.placeholder.com/600x400/198754/ffffff?text=Gráfico+Interactivo+de+Resultados" class="img-fluid rounded" alt="Gráfico">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

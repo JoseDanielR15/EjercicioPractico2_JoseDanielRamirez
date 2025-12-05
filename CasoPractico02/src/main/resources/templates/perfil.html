@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    th:replace="~{layout :: layout(~{::section}, 'Mi Perfil')}" lang="es">
+
+<section th:fragment="contenido">
+    <h1 class="mb-4 text-primary fw-bold display-6">
+        <i class="fas fa-id-badge me-2"></i> Información de Mi Perfil
+    </h1>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0">
+                
+                <div class="card-header bg-primary text-white text-center py-4 rounded-top">
+                    <i class="fas fa-user-circle fa-5x mb-2"></i>
+                    <h3 class="mb-0 fw-bold" sec:authentication="principal.nombre">Nombre de Usuario</h3>
+                    <p class="mb-0 small" th:text="'Rol: ' + ${#authentication.principal.rol.nombre}">ROL ASIGNADO</p>
+                </div>
+                
+                <div class="card-body p-5">
+                    
+                    <h5 class="card-title mb-4 fw-bold text-secondary border-bottom pb-2">
+                        <i class="fas fa-address-card me-2"></i> Datos Personales y de Acceso
+                    </h5>
+                    
+                    <ul class="list-group list-group-flush mb-4">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong><i class="fas fa-user me-2 text-primary"></i> Nombre Completo:</strong>
+                            <span sec:authentication="principal.nombre" class="fw-medium">Nombre Apellido</span>
+                        </li>
+                        
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong><i class="fas fa-envelope me-2 text-primary"></i> Correo Electrónico (Usuario):</strong>
+                            <span sec:authentication="name" class="fw-medium">email@example.com</span>
+                        </li>
+                        
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong><i class="fas fa-user-tag me-2 text-primary"></i> Rol Asignado:</strong>
+                            <span>
+                                <span class="badge rounded-pill text-bg-info p-2 fw-normal" th:text="${#authentication.principal.rol.nombre}">ROL</span>
+                            </span>
+                        </li>
+                    </ul>
+
+                    <h5 class="card-title mb-3 fw-bold text-secondary border-bottom pb-2">
+                        <i class="fas fa-lock me-2"></i> Seguridad de la Cuenta
+                    </h5>
+                    
+                    <div class="alert alert-warning d-flex align-items-center small" role="alert">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        La modificación de la contraseña y otros datos sensibles debe ser solicitada o realizada por un administrador para mantener la integridad del sistema.
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4">
+                        <button class="btn btn-outline-secondary disabled" type="button" title="Acción no disponible para usuarios estándar">
+                            <i class="fas fa-user-edit me-2"></i> Editar Perfil
+                        </button>
+                        <button class="btn btn-outline-danger disabled" type="button" title="Acción no disponible para usuarios estándar">
+                            <i class="fas fa-key me-2"></i> Cambiar Contraseña
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</html>

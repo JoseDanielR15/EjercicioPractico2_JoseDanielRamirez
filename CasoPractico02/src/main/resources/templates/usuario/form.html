@@ -1,0 +1,69 @@
+<section th:fragment="contenido" th:with="titulo=${usuario.id == null ? 'Crear Nuevo Usuario' : 'Editar Usuario'}">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <h1 class="mb-4 text-primary fw-bold" th:text="${usuario.id == null ? 'Crear Nuevo Usuario' : 'Editar Usuario: ' + usuario.email}"></h1>
+            
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-secondary text-white fw-bold">
+                    <i class="fas fa-user-edit me-2"></i> Formulario de Usuario
+                </div>
+                <div class="card-body p-4">
+                    <form th:action="@{/usuario/guardar}" th:object="${usuario}" method="post">
+                        <input type="hidden" th:field="*{id}">
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="nombre" class="form-label fw-bold">Nombre</label>
+                                <input type="text" id="nombre" th:field="*{nombre}" class="form-control" required placeholder="Nombre">
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="apellido" class="form-label fw-bold">Apellido</label>
+                                <input type="text" id="apellido" th:field="*{apellido}" class="form-control" required placeholder="Apellido">
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="email" class="form-label fw-bold">Correo Electrónico</label>
+                                <input type="email" id="email" th:field="*{email}" class="form-control" required placeholder="correo@ejemplo.com">
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="password" class="form-label fw-bold">Contraseña</label>
+                                <input type="password" id="password" th:field="*{password}" class="form-control" th:required="${usuario.id == null}" placeholder="********">
+                                <div th:if="${usuario.id != null}" class="form-text text-muted">Dejar vacío para mantener la actual.</div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="rol" class="form-label fw-bold">Rol</label>
+                                <select id="rol" th:field="*{rol}" class="form-select" required>
+                                    <option value="" disabled selected>Seleccione un Rol</option>
+                                    <option th:each="r : ${roles}" th:value="${r.id}" th:text="${r.nombre}"></option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="activo" class="form-label fw-bold">Estado</label>
+                                <select id="activo" th:field="*{activo}" class="form-select">
+                                    <option value="true">Activo</option>
+                                    <option value="false">Inactivo</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        
+                        <hr class="my-4">
+                        
+                        <div class="d-flex justify-content-between">
+                            <a th:href="@{/usuario/listado}" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i> Regresar al Listado
+                            </a>
+                            <button type="submit" class="btn btn-success btn-lg shadow-sm">
+                                <i class="fas fa-floppy-disk me-2"></i> Guardar Usuario
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

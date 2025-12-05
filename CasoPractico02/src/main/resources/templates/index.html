@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" 
+    th:replace="~{layout :: layout(~{::section}, 'Inicio')}" lang="es">
+
+<section th:fragment="contenido">
+    <div class="mb-5">
+        <h1 class="text-primary fw-bolder display-4 mb-2">
+            <i class="fas fa-desktop me-2"></i> Dashboard Principal
+        </h1>
+        <p class="lead text-muted border-bottom pb-3">
+            Bienvenido. Aquí puedes encontrar un resumen de las herramientas y accesos rápidos disponibles en la plataforma.
+        </p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <div class="card shadow-lg border-0 h-100">
+                <div class="card-header bg-primary text-white fw-bold d-flex align-items-center py-3">
+                    <i class="fas fa-video me-2"></i> Guía Rápida de la Plataforma
+                </div>
+                <div class="card-body p-0">
+                    <div class="ratio ratio-16x9">
+                        <iframe src="https://www.youtube.com/embed/OCfbZDaOPCQ" 
+                                title="Tutorial de la Plataforma" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="card-footer text-muted small">
+                    <i class="fas fa-info-circle me-1"></i> Video explicativo sobre el funcionamiento de los módulos principales.
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card shadow-lg border-0 h-100">
+                <div class="card-body p-4 d-flex flex-column">
+                    <h3 class="text-secondary fw-bold mb-4 border-bottom pb-2">
+                        <i class="fas fa-bolt me-2 text-warning"></i> Accesos Directos
+                    </h3>
+
+                    <div class="row g-3 mb-4 flex-grow-1 align-content-start">
+                        <div class="col-sm-6" sec:authorize="hasRole('ADMIN')">
+                            <a th:href="@{/rol/listado}" class="btn btn-outline-info w-100 p-3 fw-bold">
+                                <i class="fas fa-sitemap fa-2x d-block mb-1"></i>
+                                Gestionar Roles
+                            </a>
+                        </div>
+                        
+                        <div class="col-sm-6" sec:authorize="hasAnyRole('ADMIN', 'PROFESOR')">
+                            <a th:href="@{/usuario/listado}" class="btn btn-outline-success w-100 p-3 fw-bold">
+                                <i class="fas fa-users fa-2x d-block mb-1"></i>
+                                Listado de Usuarios
+                            </a>
+                        </div>
+
+                        <div class="col-sm-6" sec:authorize="hasRole('PROFESOR')">
+                            <a th:href="@{/reportes/consultas}" class="btn btn-outline-danger w-100 p-3 fw-bold">
+                                <i class="fas fa-chart-line fa-2x d-block mb-1"></i>
+                                Ver Reportes
+                            </a>
+                        </div>
+                        
+                        <div class="col-sm-6">
+                            <a th:href="@{/perfil}" class="btn btn-outline-secondary w-100 p-3 fw-bold">
+                                <i class="fas fa-id-badge fa-2x d-block mb-1"></i>
+                                Mi Perfil
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <h5 class="fw-bold mb-3 mt-auto text-primary border-top pt-3">
+                        <i class="fas fa-bullhorn me-2"></i> Últimas Novedades
+                    </h5>
+                    <div class="alert alert-light border-start border-4 border-primary p-3" role="alert">
+                        <small class="d-block text-muted">2025-12-04</small>
+                        Esta es una pagina creada para un caso de estudio #2, hecha por Jose Daniel Ramírez
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</html>
+

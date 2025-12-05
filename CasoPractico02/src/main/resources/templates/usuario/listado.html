@@ -1,0 +1,52 @@
+<section th:fragment="contenido" th:with="titulo='Listado de Usuarios'">
+    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+        <h1 class="text-primary fw-bold">Gestión de Usuarios</h1>
+        <a th:href="@{/usuario/nuevo}" class="btn btn-success btn-lg shadow-sm" sec:authorize="hasRole('ADMIN')">
+            <i class="fas fa-user-plus me-2"></i> Nuevo Usuario
+        </a>
+    </div>
+
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-secondary text-white fw-bold">
+            <i class="fas fa-users me-2"></i> Usuarios del Sistema
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre Completo</th>
+                            <th scope="col">Correo (Usuario)</th>
+                            <th scope="col">Rol</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col" class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="usuario : ${usuarios}">
+                            <td th:text="${usuario.id}">1</td>
+                            <td th:text="${usuario.nombre} + ' ' + ${usuario.apellido}">Nombre Apellido</td>
+                            <td th:text="${usuario.email}">email@example.com</td>
+                            <td><span class="badge rounded-pill text-bg-info" th:text="${usuario.rol.nombre}">ROL</span></td>
+                            <td>
+                                <span th:if="${usuario.activo}" class="badge rounded-pill text-bg-success"><i class="fas fa-circle-check"></i> Activo</span>
+                                <span th:unless="${usuario.activo}" class="badge rounded-pill text-bg-danger"><i class="fas fa-circle-xmark"></i> Inactivo</span>
+                            </td>
+                            <td class="text-center">
+                                <a th:href="@{/usuario/editar/{id}(id=${usuario.id})}" class="btn btn-sm btn-warning me-2" title="Editar Usuario" sec:authorize="hasRole('ADMIN')">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a th:href="@{/usuario/eliminar/{id}(id=${usuario.id})}" class="btn btn-sm btn-danger" title="Eliminar Usuario" sec:authorize="hasRole('ADMIN')"
+                                   onclick="return confirm('¿Está seguro de eliminar este usuario?');">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
